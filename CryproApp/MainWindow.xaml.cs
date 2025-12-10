@@ -19,6 +19,7 @@ namespace CryproApp
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new ViewModels.MainWindowViewModel();
         }
     }
 }
