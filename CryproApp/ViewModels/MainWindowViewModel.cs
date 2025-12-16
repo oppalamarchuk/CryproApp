@@ -6,35 +6,22 @@ using System.Runtime.CompilerServices;
 
 namespace CryproApp.ViewModels
 {
-    internal class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : ViewModelBase
     {
-        private ObservableCollection<Coin> _coins = new ObservableCollection<Coin>();
-        public ObservableCollection<Coin> Coins
-        {
-            get => _coins;
+        private ViewModelBase _currentViewModel;
+        public ViewModelBase CurrentViewModel 
+        { 
+            get => _currentViewModel;
             set
             {
-                _coins = value;
+                _currentViewModel = value;
                 OnPropertyChanged();
-            }
+            } 
         }
 
         public MainWindowViewModel()
         {
-            LoadCoins();
+            CurrentViewModel = new CoinsViewModel();
         }
-
-        private async void LoadCoins()
-        {
-            var api = new CoingeckoApi();
-            var coins = await api.GetTopCoinsAsync();
-
-            Coins = new ObservableCollection<Coin>(coins);
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

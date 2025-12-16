@@ -4,24 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:CryproApp.ViewModels"
-        xmlns:models="clr-namespace:CryproApp.Models"
+        xmlns:views="clr-namespace:CryproApp.Views"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="450"
         Width="800">
 
-    <Grid Margin="10">
-        <ListBox ItemsSource="{Binding Coins}" HorizontalAlignment="Left" Width="780">
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type models:Coin}">
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <TextBlock Text="{Binding Symbol}" Width="50"/>
-                        <TextBlock Text="{Binding Name}" Width="150"/>
-                        <TextBlock Text="{Binding Price, StringFormat=C}" Width="100"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-    </Grid>
+    <ContentControl Content="{Binding CurrentViewModel}">
+        <ContentControl.Resources>
+            <DataTemplate DataType="{x:Type vm:CoinsViewModel}">
+                <views:CoinsView/>
+            </DataTemplate>
+        </ContentControl.Resources>
+    </ContentControl>
 
 </Window>
