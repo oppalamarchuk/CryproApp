@@ -17,7 +17,7 @@ namespace CryproApp.API
             BaseAddress = new Uri(BaseUrl)
         };
 
-        public async Task<CoinDetailsDto> GetCoinDetailsAsync(string id = "bitcoin", string currency = "usd")
+        public async Task<CoinDetailsDto> GetCoinDetailsAsync(string id , string currency)
         {
             JsonElement root = await HttpClient.GetFromJsonAsync<JsonElement>(
                 $"coins/{id}");

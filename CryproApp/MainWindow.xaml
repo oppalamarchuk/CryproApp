@@ -15,6 +15,10 @@
             <DataTemplate DataType="{x:Type vm:CoinsViewModel}">
                 <views:CoinsView/>
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:CoinDetailsViewModel}">
+                <views:CoinDetailsView/>
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 

@@ -21,7 +21,7 @@ namespace CryproApp.ViewModels
 
         public MainWindowViewModel()
         {
-            CurrentViewModel = new CoinsViewModel();
+            CurrentViewModel = new CoinDetailsViewModel("bitcoin");
         }
     }
 }
