@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CryproApp.Stores;
 using CryproApp.ViewModels;
 
 namespace CryproApp
@@ -19,8 +20,10 @@ namespace CryproApp
     {
         public MainWindow()
         {
+            var navigationStore = new NavigationStore();
+            navigationStore.CurrentViewModel = new CoinsViewModel(navigationStore);
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            DataContext = new MainWindowViewModel(navigationStore);
         }
     }
 }

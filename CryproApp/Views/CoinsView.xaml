@@ -10,6 +10,7 @@
 
     <Grid Margin="10">
         <ListBox ItemsSource="{Binding Coins}"
+                 SelectedItem="{Binding SelectedCoin}"
                  HorizontalAlignment="Stretch">
 
             <ListBox.ItemTemplate>
@@ -31,6 +32,10 @@
                         <TextBlock Grid.Column="2"
                                    Text="{Binding Price, StringFormat=C}"
                                    HorizontalAlignment="Right"/>
+                        <Button Content="Details"
+                            Command="{Binding DataContext.OpenDetailsCommand,
+                                    RelativeSource={RelativeSource AncestorType=ListBox}}"
+                            CommandParameter="{Binding}" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

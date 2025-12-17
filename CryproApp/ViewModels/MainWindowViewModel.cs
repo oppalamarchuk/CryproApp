@@ -1,5 +1,6 @@
 ﻿using CryproApp.API;
 using CryproApp.Models;
+using CryproApp.Stores;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -8,20 +9,21 @@ namespace CryproApp.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private ViewModelBase _currentViewModel;
+        private NavigationStore _navigationStore;
         public ViewModelBase CurrentViewModel 
         { 
-            get => _currentViewModel;
-            set
-            {
-                _currentViewModel = value;
-                OnPropertyChanged();
-            } 
+            get => _navigationStore.CurrentViewModel;
         }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(NavigationStore navigationStore)
         {
-            CurrentViewModel = new CoinDetailsViewModel("bitcoin");
+            _navigationStore = navigationStore;
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
         }
-    }
+
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
+        }
+   }
 }
