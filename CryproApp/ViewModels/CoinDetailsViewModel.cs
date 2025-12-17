@@ -25,9 +25,9 @@ namespace CryproApp.ViewModels
         }
         public ICommand OpenCoinsCommand { get; }
         private readonly NavigationStore _navigationStore;
+
         public CoinDetailsViewModel(Coin coin,NavigationStore navigationStore)
         {
-           
             _navigationStore = navigationStore;
             OpenCoinsCommand = new NavigateCoinsCommand(_navigationStore);
 

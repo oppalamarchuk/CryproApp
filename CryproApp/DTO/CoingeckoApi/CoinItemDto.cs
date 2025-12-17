@@ -7,5 +7,4 @@
         public string Symbol { get; set; }
         public CoinDataDto Data { get; set; }
     }
-
 }

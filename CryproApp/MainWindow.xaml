@@ -9,17 +9,32 @@
         Title="MainWindow"
         Height="450"
         Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Button Content="Search"
+            Command="{Binding OpenSearchCommand}"
+            Margin="10"
+            HorizontalAlignment="Left"/>
+        
+        <ContentControl Content="{Binding CurrentViewModel}"
+                        Grid.Row="1">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type vm:CoinsViewModel}">
+                    <views:CoinsView/>
+                </DataTemplate>
 
-    <ContentControl Content="{Binding CurrentViewModel}">
-        <ContentControl.Resources>
-            <DataTemplate DataType="{x:Type vm:CoinsViewModel}">
-                <views:CoinsView/>
-            </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:CoinDetailsViewModel}">
+                    <views:CoinDetailsView/>
+                </DataTemplate>
 
-            <DataTemplate DataType="{x:Type vm:CoinDetailsViewModel}">
-                <views:CoinDetailsView/>
-            </DataTemplate>
-        </ContentControl.Resources>
-    </ContentControl>
-
+                <DataTemplate DataType="{x:Type vm:SearchCoinViewModel}">
+                    <views:SearchCoinView/>
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+    </Grid>
 </Window>

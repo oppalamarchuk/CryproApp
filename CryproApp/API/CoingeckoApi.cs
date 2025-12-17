@@ -6,20 +6,40 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
-
+using System.Linq;
 namespace CryproApp.API
 {
     internal class CoingeckoApi
     {
         private const string BaseUrl = "https://api.coingecko.com/api/v3/";
-        private static HttpClient HttpClient = new HttpClient() 
-        { 
-            BaseAddress = new Uri(BaseUrl)
-        };
+        private static HttpClient _http;
+        private readonly string _apiKey;
+        public CoingeckoApi()
+        {
+            _apiKey = App.Configuration["ApiKeys:CoinGecko"];
+
+            _http = new HttpClient()
+            {
+                BaseAddress = new Uri(BaseUrl),
+
+                DefaultRequestHeaders =
+                {
+                    { "x-cg-demo-api-key", _apiKey }
+                }
+            };
+
+        }
+
+        public async Task<List<CoinListItemDto>> GetAllCoins()
+        {
+            var coins = await _http.GetFromJsonAsync<List<CoinListItemDto>>("coins/list");
+
+            return coins ?? new List<CoinListItemDto>();
+        }
 
         public async Task<CoinDetailsDto> GetCoinDetailsAsync(string id , string currency)
         {
-            JsonElement root = await HttpClient.GetFromJsonAsync<JsonElement>(
+            JsonElement root = await _http.GetFromJsonAsync<JsonElement>(
                 $"coins/{id}");
 
             string name   = root.GetProperty("name").GetString();
@@ -69,7 +89,7 @@ namespace CryproApp.API
 
         public async Task<IEnumerable<Coin>> GetTopCoinsAsync()
         {
-            var root = await HttpClient.GetFromJsonAsync<RootDto>(
+            var root = await _http.GetFromJsonAsync<RootDto>(
                     "search/trending");
 
             var coins = root?.Coins.Select(c => new Coin

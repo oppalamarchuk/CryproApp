@@ -25,5 +25,6 @@ namespace CryproApp
             InitializeComponent();
             DataContext = new MainWindowViewModel(navigationStore);
         }
+
     }
 }

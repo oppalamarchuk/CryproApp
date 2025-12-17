@@ -1,6 +1,5 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
+using Microsoft.Extensions.Configuration;
 
 namespace CryproApp
 {
@@ -9,6 +8,17 @@ namespace CryproApp
     /// </summary>
     public partial class App : Application
     {
+        public static IConfiguration Configuration { get; private set; }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddUserSecrets<App>()                        
+                .Build();
+        }
     }
 
 }
