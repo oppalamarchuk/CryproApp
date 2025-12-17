@@ -6,23 +6,31 @@
              xmlns:local="clr-namespace:CryproApp.Views"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding CoinDetails.Name}"
-                   Grid.Row="0"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   Margin="10"/>
-        <TextBlock Text="{Binding CoinDetails.Symbol}"
-                   Grid.Row ="1"/>
-        <TextBlock Text="{Binding CoinDetails.Data.Price, StringFormat=C}"
-                   Grid.Row="1"
-                   HorizontalAlignment="Right"
-                   Margin="0,0,10,0"/>
+
+        <TextBlock Grid.Row="0"
+               Text="{Binding CoinDetails.Name, TargetNullValue=Loading...}"
+               FontSize="24"
+               FontWeight="Bold"/>
+
+        <TextBlock Grid.Row="1"
+               Text="{Binding CoinDetails.Symbol}" />
+
+        <TextBlock Grid.Row="2"
+               Text="{Binding CoinDetails.Data.Price,
+                              StringFormat=C}" />
+
+        <Button Grid.Row="3"
+            Content="Top Coins"
+            Command="{Binding OpenCoinsCommand}"
+            Margin="0,10,0,0"/>
     </Grid>
+
 </UserControl>

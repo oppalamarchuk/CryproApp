@@ -7,6 +7,8 @@ using CryproApp.DTO.CoingeckoApi;
 using CryproApp.API;
 using CryproApp.Models;
 using CryproApp.Stores;
+using System.Windows.Input;
+using CryproApp.Commands;
 
 namespace CryproApp.ViewModels
 {
@@ -21,14 +23,18 @@ namespace CryproApp.ViewModels
                 OnPropertyChanged();
             } 
         }
+        public ICommand OpenCoinsCommand { get; }
         private readonly NavigationStore _navigationStore;
         public CoinDetailsViewModel(Coin coin,NavigationStore navigationStore)
         {
+           
             _navigationStore = navigationStore;
-            _ = LoadCoinDetails(coin.Id);
+            OpenCoinsCommand = new NavigateCoinsCommand(_navigationStore);
+
+            LoadCoinDetails(coin.Id);
         }
 
-        public async Task LoadCoinDetails(string id, string currency = "usd")
+        public async void LoadCoinDetails(string id, string currency = "usd")
         {
             var api = new CoingeckoApi();
             CoinDetails = await api.GetCoinDetailsAsync(id, currency);
