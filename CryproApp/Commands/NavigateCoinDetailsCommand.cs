@@ -1,4 +1,5 @@
-﻿using CryproApp.Models;
+﻿using CryproApp.DTO.CoingeckoApi;
+using CryproApp.Models;
 using CryproApp.Stores;
 using CryproApp.ViewModels;
 using System;
@@ -23,6 +24,12 @@ namespace CryproApp.Commands
             {
                 _navigationStore.CurrentViewModel =
                     new CoinDetailsViewModel(coin , _navigationStore);
+            }
+            else if (parameter is CoinListItemDto coinL)
+            {
+                _navigationStore.CurrentViewModel =
+                  new CoinDetailsViewModel(coinL.Id, _navigationStore);
+
             }
         }
     }

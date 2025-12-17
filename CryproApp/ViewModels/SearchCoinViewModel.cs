@@ -1,4 +1,5 @@
-﻿using CryproApp.DTO.CoingeckoApi;
+﻿using CryproApp.Commands;
+using CryproApp.DTO.CoingeckoApi;
 using CryproApp.Models;
 using CryproApp.Stores;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace CryproApp.ViewModels
 {
@@ -24,7 +26,7 @@ namespace CryproApp.ViewModels
                 FilterCoins();
             }
         }
-
+        public ICommand OpenDetailsCommand { get; }
         private readonly List<CoinListItemDto> _allCoins = new();
         private ObservableCollection<CoinListItemDto> _coins = new();
         public ObservableCollection<CoinListItemDto> Coins
@@ -36,7 +38,8 @@ namespace CryproApp.ViewModels
                 OnPropertyChanged();
             }
         }
-        private async Task LoadCoins()
+
+        private async void LoadCoins()
         {
             var api = new API.CoingeckoApi();
             var coins = await api.GetAllCoins();
@@ -47,6 +50,7 @@ namespace CryproApp.ViewModels
         public SearchCoinViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
+            OpenDetailsCommand = new NavigateCoinDetailsCommand(_navigationStore);
 
             LoadCoins();
         }

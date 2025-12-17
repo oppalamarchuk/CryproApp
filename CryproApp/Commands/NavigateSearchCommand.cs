@@ -16,7 +16,7 @@ namespace CryproApp.Commands
             _navigationStore = navigationStore;
         }
         public override void Execute(object? parameter)
-        {
+         {
             _navigationStore.CurrentViewModel = new SearchCoinViewModel(_navigationStore);
         }
     }

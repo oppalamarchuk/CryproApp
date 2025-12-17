@@ -13,12 +13,10 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- Search box -->
             <TextBox Text="{Binding SearchText,
                         UpdateSourceTrigger=PropertyChanged}"
                  Margin="5"/>
 
-            <!-- Results -->
             <ListBox Grid.Row="1"
                  ItemsSource="{Binding Coins}">
 
@@ -39,11 +37,12 @@
                                    Text="{Binding Name}"/>
 
                         <Button Grid.Column="2"
-                                Content="Details"
-                                Margin="5,0,0,0"
-                                Command="{Binding DataContext.OpenDetailsCommand,
-                                          RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                CommandParameter="{Binding}" />
+                            Content="Details"
+                            Margin="5,0,0,0"
+                            Command="{Binding DataContext.OpenDetailsCommand,
+                                      RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding}" />
+
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

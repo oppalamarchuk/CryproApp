@@ -23,6 +23,7 @@ namespace CryproApp.ViewModels
                 OnPropertyChanged();
             } 
         }
+
         public ICommand OpenCoinsCommand { get; }
         private readonly NavigationStore _navigationStore;
 
@@ -32,6 +33,13 @@ namespace CryproApp.ViewModels
             OpenCoinsCommand = new NavigateCoinsCommand(_navigationStore);
 
             LoadCoinDetails(coin.Id);
+        }
+        public CoinDetailsViewModel(string coinId, NavigationStore navigationStore)
+        {
+            _navigationStore = navigationStore;
+            OpenCoinsCommand = new NavigateCoinsCommand(_navigationStore);
+
+            LoadCoinDetails(coinId);
         }
 
         public async void LoadCoinDetails(string id, string currency = "usd")
