@@ -42,7 +42,6 @@
                             Command="{Binding DataContext.OpenDetailsCommand,
                                       RelativeSource={RelativeSource AncestorType=UserControl}}"
                             CommandParameter="{Binding}" />
-
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

@@ -14,11 +14,25 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <Button Content="Search"
-            Command="{Binding OpenSearchCommand}"
-            Margin="10"
-            HorizontalAlignment="Left"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0"
+            HorizontalAlignment="Left" Margin="10,10,0,0">
+
+            <Button Content="Search"
+                Command="{Binding OpenSearchCommand}"
+                Height="30"
+                Margin="10"/>
+
+            <Button Content="Top Coins"
+                Command="{Binding OpenCoinsCommand}"
+                Height="30"
+                Margin="10"/>
+
+            <Button Content="Convert"
+                    Command="{Binding OpenConvertCommand}"
+                    Height="30"
+                    Margin="10"/>
+        </StackPanel>
         
         <ContentControl Content="{Binding CurrentViewModel}"
                         Grid.Row="1">
@@ -33,6 +47,10 @@
 
                 <DataTemplate DataType="{x:Type vm:SearchCoinViewModel}">
                     <views:SearchCoinView/>
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type vm:ConvertVeiwModel}">
+                    <views:ConvertView/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

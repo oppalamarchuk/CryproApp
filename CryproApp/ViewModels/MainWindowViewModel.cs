@@ -21,10 +21,15 @@ namespace CryproApp.ViewModels
         {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+            
             OpenSearchCommand = new NavigateSearchCommand(_navigationStore);
+            OpenCoinsCommand  = new NavigateCoinsCommand(_navigationStore);
+            OpenConvertCommand = new NavigateConvertCommand(_navigationStore);
         }
 
         public ICommand OpenSearchCommand { get; }
+        public ICommand OpenCoinsCommand { get; }
+        public ICommand OpenConvertCommand { get; }
         private void OnCurrentViewModelChanged()
         {
             OnPropertyChanged(nameof(CurrentViewModel));

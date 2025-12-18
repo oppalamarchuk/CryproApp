@@ -23,26 +23,23 @@ namespace CryproApp.ViewModels
                 OnPropertyChanged();
             } 
         }
-
-        public ICommand OpenCoinsCommand { get; }
         private readonly NavigationStore _navigationStore;
 
         public CoinDetailsViewModel(Coin coin,NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
-            OpenCoinsCommand = new NavigateCoinsCommand(_navigationStore);
 
             LoadCoinDetails(coin.Id);
         }
+
         public CoinDetailsViewModel(string coinId, NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
-            OpenCoinsCommand = new NavigateCoinsCommand(_navigationStore);
 
             LoadCoinDetails(coinId);
         }
 
-        public async void LoadCoinDetails(string id, string currency = "usd")
+        private async void LoadCoinDetails(string id, string currency = "usd")
         {
             var api = new CoingeckoApi();
             CoinDetails = await api.GetCoinDetailsAsync(id, currency);

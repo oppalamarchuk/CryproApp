@@ -30,6 +30,25 @@ namespace CryproApp.API
 
         }
 
+        public async Task<decimal> ConvertCurrency(decimal amount, string fromCurrency, string toCurrency)
+        {
+            string mediumCurrency = "usd";
+            var root = await _http.GetFromJsonAsync<JsonElement>(
+                $"simple/price?vs_currencies={mediumCurrency}&ids={fromCurrency}%2C{toCurrency}");
+
+            decimal priceFrom = root
+                .GetProperty(fromCurrency)
+                .GetProperty(mediumCurrency)
+                .GetDecimal();
+
+            decimal priceTo = root
+                .GetProperty(toCurrency)
+                .GetProperty(mediumCurrency)
+                .GetDecimal();
+            decimal rate = priceFrom / priceTo;
+            return amount * rate;
+        }
+
         public async Task<List<CoinListItemDto>> GetAllCoins()
         {
             var coins = await _http.GetFromJsonAsync<List<CoinListItemDto>>("coins/list");

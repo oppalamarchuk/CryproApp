@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace CryproApp.Commands
 {
-    class NavigateSearchCommand : CommandBase
+    public class NavigateConvertCommand : CommandBase
     {
         private readonly NavigationStore _navigationStore;
-        public NavigateSearchCommand(NavigationStore navigationStore)
+        public NavigateConvertCommand(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
         }
         public override void Execute(object? parameter)
         {
-            _navigationStore.CurrentViewModel = new SearchCoinViewModel(_navigationStore);
+            _navigationStore.CurrentViewModel = new ConvertVeiwModel(_navigationStore);
         }
     }
 }
