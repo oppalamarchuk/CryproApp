@@ -49,7 +49,7 @@ namespace CryproApp.API
             return amount * rate;
         }
 
-        public async Task<List<CoinListItemDto>> GetAllCoins()
+        public async Task<List<CoinListItemDto>> GetAllCoinsAsync()
         {
             var coins = await _http.GetFromJsonAsync<List<CoinListItemDto>>("coins/list");
 
@@ -104,6 +104,21 @@ namespace CryproApp.API
             };
 
             return coin;
+        }
+        public async Task<List<PricePointDTO>> GetCoinChartDataAsync(string id, string currency)
+        {
+            var root = await _http.GetFromJsonAsync<JsonElement>(
+                    $"coins/{id}/market_chart?vs_currency={currency}&days=7");
+            var prices = root.GetProperty("prices").EnumerateArray();
+
+            List<PricePointDTO> pricePoints = prices
+                .Select(item => new PricePointDTO
+                {
+                    Time = DateTimeOffset.FromUnixTimeMilliseconds(item[0].GetInt64()).DateTime,
+                    Price = item[1].GetDecimal()
+                }).ToList();
+                
+            return pricePoints;
         }
 
         public async Task<IEnumerable<Coin>> GetTopCoinsAsync()

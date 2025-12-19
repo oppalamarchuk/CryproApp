@@ -1,42 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CryproApp.DTO.CoingeckoApi;
-using CryproApp.API;
-using CryproApp.Models;
-using CryproApp.Stores;
-using System.Windows.Input;
+﻿using CryproApp.API;
 using CryproApp.Commands;
+using CryproApp.DTO.CoingeckoApi;
+using CryproApp.Models;
+using LiveCharts;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace CryproApp.ViewModels
 {
     public class CoinDetailsViewModel : ViewModelBase
     {
         private CoinDetailsDto _coinDetails;
-        public CoinDetailsDto CoinDetails { 
+        public CoinDetailsDto CoinDetails
+        {
             get => _coinDetails;
             set
             {
                 _coinDetails = value;
                 OnPropertyChanged();
-            } 
+            }
         }
-        private readonly NavigationStore _navigationStore;
+
+        public ChartValues<decimal> Prices { get; set; } = new ChartValues<decimal>();
+        public List<string> TimeLabels { get; set; } = new List<string>();
 
         public ICommand OpenMarketCommand { get; }
-        public CoinDetailsViewModel(Coin coin,NavigationStore navigationStore)
+        public CoinDetailsViewModel(Coin coin)
         {
-            _navigationStore = navigationStore;
             OpenMarketCommand = new NavigateMarketCommand();
 
             LoadCoinDetails(coin.Id);
         }
-        
-        public CoinDetailsViewModel(string coinId, NavigationStore navigationStore)
+
+        public CoinDetailsViewModel(string coinId)
         {
-            _navigationStore = navigationStore;
+            OpenMarketCommand = new NavigateMarketCommand();
 
             LoadCoinDetails(coinId);
         }
@@ -45,6 +43,15 @@ namespace CryproApp.ViewModels
         {
             var api = new CoingeckoApi();
             CoinDetails = await api.GetCoinDetailsAsync(id, currency);
+
+            var pricePoints = await api.GetCoinChartDataAsync(id, currency);
+            
+            Prices.Clear();
+            foreach (var p in pricePoints)
+            {
+                Prices.Add(p.Price);
+                TimeLabels.Add(p.Time.ToString("dd MMM HH:mm"));
+            }
         }
     }
 }

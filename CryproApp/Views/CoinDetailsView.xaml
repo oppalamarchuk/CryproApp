@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CryproApp.Views"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -12,6 +13,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -25,9 +27,28 @@
 
         <TextBlock Grid.Row="2"
                Text="{Binding CoinDetails.Data.Price,
-                      StringFormat={}{0:0.##########}}"/>
+                      StringFormat={}{0:$0.##########}}"/>
         
-        <ListBox Grid.Row="3"
+        <lvc:CartesianChart Grid.Row="3">
+            <lvc:CartesianChart.Series>
+                <lvc:LineSeries 
+                    Values="{Binding Prices}"
+                    PointGeometry="{x:Null}"
+                    Fill="Transparent"/>
+            </lvc:CartesianChart.Series>
+
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis 
+                    MinValue="{Binding MinPrice}"
+                    MaxValue="{Binding MaxPrice}"/>
+            </lvc:CartesianChart.AxisY>
+
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Time" Labels="{Binding TimeLabels}" />
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
+
+        <ListBox Grid.Row="4"
                  ItemsSource="{Binding CoinDetails.Markets}"
                  HorizontalAlignment="Stretch">
             <ListBox.ItemTemplate>

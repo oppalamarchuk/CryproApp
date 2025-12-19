@@ -23,12 +23,12 @@ namespace CryproApp.Commands
             if(parameter is Coin coin)
             {
                 _navigationStore.CurrentViewModel =
-                    new CoinDetailsViewModel(coin , _navigationStore);
+                    new CoinDetailsViewModel(coin);
             }
             else if (parameter is CoinListItemDto coinL)
             {
                 _navigationStore.CurrentViewModel =
-                  new CoinDetailsViewModel(coinL.Id, _navigationStore);
+                  new CoinDetailsViewModel(coinL.Id);
 
             }
         }

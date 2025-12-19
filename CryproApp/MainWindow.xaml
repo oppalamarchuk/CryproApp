@@ -18,13 +18,13 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0"
             HorizontalAlignment="Left" Margin="10,10,0,0">
 
-            <Button Content="Search"
-                Command="{Binding OpenSearchCommand}"
-                Height="30"
-                Margin="10"/>
-
             <Button Content="Top Coins"
                 Command="{Binding OpenCoinsCommand}"
+                Height="30"
+                Margin="10"/>
+            
+            <Button Content="Search"
+                Command="{Binding OpenSearchCommand}"
                 Height="30"
                 Margin="10"/>
 

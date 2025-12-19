@@ -42,7 +42,7 @@ namespace CryproApp.ViewModels
         private async void LoadCoins()
         {
             var api = new API.CoingeckoApi();
-            var coins = await api.GetAllCoins();
+            var coins = await api.GetAllCoinsAsync();
 
             _allCoins.AddRange(coins);
         }
