@@ -1,6 +1,6 @@
 ﻿namespace CryproApp.Commands
 {
-    internal class NavigateMarketCommand : CommandBase
+    public class NavigateMarketCommand : CommandBase
     {
         public override void Execute(object? parameter)
         {

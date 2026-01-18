@@ -3,33 +3,16 @@ using CryproApp.Commands;
 using CryproApp.DTO.CoingeckoApi;
 using CryproApp.Models;
 using LiveCharts;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace CryproApp.ViewModels
 {
     public class CoinDetailsViewModel : ViewModelBase
     {
-        private CoinDetailsDto _coinDetails;
-        public CoinDetailsDto CoinDetails
+        private CoinDetailsDTO _coinDetails;
+
+        public CoinDetailsViewModel(Coin coin) : this(coin.Id)
         {
-            get => _coinDetails;
-            set
-            {
-                _coinDetails = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ChartValues<decimal> Prices { get; set; } = new ChartValues<decimal>();
-        public List<string> TimeLabels { get; set; } = new List<string>();
-
-        public ICommand OpenMarketCommand { get; }
-        public CoinDetailsViewModel(Coin coin)
-        {
-            OpenMarketCommand = new NavigateMarketCommand();
-
-            LoadCoinDetails(coin.Id);
         }
 
         public CoinDetailsViewModel(string coinId)
@@ -37,6 +20,22 @@ namespace CryproApp.ViewModels
             OpenMarketCommand = new NavigateMarketCommand();
 
             LoadCoinDetails(coinId);
+        }
+
+        public ICommand OpenMarketCommand { get; init; }
+
+        public List<string> TimeLabels { get; set; } = new();
+
+        public ChartValues<decimal> Prices { get; set; } = new();
+
+        public CoinDetailsDTO CoinDetails
+        {
+            get => _coinDetails;
+            set
+            {
+                _coinDetails = value;
+                OnPropertyChanged();
+            }
         }
 
         private async void LoadCoinDetails(string id, string currency = "usd")

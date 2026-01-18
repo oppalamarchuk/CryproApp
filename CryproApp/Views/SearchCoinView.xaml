@@ -21,7 +21,7 @@
                  ItemsSource="{Binding Coins}">
 
             <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type dto:CoinListItemDto}">
+                <DataTemplate DataType="{x:Type dto:CoinListItemDTO}">
                     <Grid Margin="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="60"/>

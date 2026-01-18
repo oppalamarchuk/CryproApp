@@ -1,33 +1,28 @@
 ﻿using CryproApp.DTO.CoingeckoApi;
 using CryproApp.Models;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text;
 using System.Text.Json;
-using System.Linq;
+
 namespace CryproApp.API
 {
-    internal class CoingeckoApi
+    public class CoingeckoApi
     {
-        private const string BaseUrl = "https://api.coingecko.com/api/v3/";
-        private static HttpClient _http;
-        private readonly string _apiKey;
+        private static readonly HttpClient _http = new HttpClient();
+
+        static CoingeckoApi()
+        {
+            string apiKey = App.Configuration["ApiKeys:CoinGecko"];
+            string baseUrl = "https://api.coingecko.com/api/v3/";
+
+            _http.BaseAddress = new Uri(baseUrl);
+            _http.DefaultRequestHeaders.Add("x-cg-demo-api-key", apiKey);
+            _http.Timeout = TimeSpan.FromSeconds(30);
+        }
+
         public CoingeckoApi()
         {
-            _apiKey = App.Configuration["ApiKeys:CoinGecko"];
-
-            _http = new HttpClient()
-            {
-                BaseAddress = new Uri(BaseUrl),
-
-                DefaultRequestHeaders =
-                {
-                    { "x-cg-demo-api-key", _apiKey }
-                }
-            };
-
+            
         }
 
         public async Task<decimal> ConvertCurrency(decimal amount, string fromCurrency, string toCurrency)
@@ -45,41 +40,48 @@ namespace CryproApp.API
                 .GetProperty(toCurrency)
                 .GetProperty(mediumCurrency)
                 .GetDecimal();
+            
             decimal rate = priceFrom / priceTo;
+
             return amount * rate;
         }
 
-        public async Task<List<CoinListItemDto>> GetAllCoinsAsync()
+        public async Task<List<CoinListItemDTO>> GetAllCoinsAsync()
         {
-            var coins = await _http.GetFromJsonAsync<List<CoinListItemDto>>("coins/list");
+            var coins = await _http.GetFromJsonAsync<List<CoinListItemDTO>>("coins/list");
 
-            return coins ?? new List<CoinListItemDto>();
+            return coins ?? new List<CoinListItemDTO>();
         }
 
-        public async Task<CoinDetailsDto> GetCoinDetailsAsync(string id , string currency)
+        public async Task<CoinDetailsDTO> GetCoinDetailsAsync(string id , string currency)
         {
             JsonElement root = await _http.GetFromJsonAsync<JsonElement>(
                 $"coins/{id}");
 
             string name   = root.GetProperty("name").GetString();
             string symbol = root.GetProperty("symbol").GetString();
-            decimal price = root.GetProperty("market_data")
+
+            decimal price = root
+                    .GetProperty("market_data")
                     .GetProperty("current_price")
                     .GetProperty(currency)
                     .GetDecimal();
-            decimal volume = root.GetProperty("market_data")
+
+            decimal volume = root   
+                    .GetProperty("market_data")
                     .GetProperty("total_volume")
                     .GetProperty(currency)
                     .GetDecimal();
+
             decimal priceChange = root
                     .GetProperty("market_data")
                     .GetProperty("price_change_percentage_24h")
                     .GetDecimal();
 
             JsonElement tickers = root.GetProperty("tickers");
-            List<Market> markets = tickers
+            List<MarketDTO> markets = tickers
                 .EnumerateArray()
-                .Select(item => new Market()
+                .Select(item => new MarketDTO()
                 {
                     Name = item.GetProperty("market")
                                 .GetProperty("name").GetString(),
@@ -89,12 +91,12 @@ namespace CryproApp.API
                 })
                 .ToList();
 
-            CoinDetailsDto coin = new CoinDetailsDto()
+            CoinDetailsDTO coin = new CoinDetailsDTO()
             {
                 Id = id,
                 Name = name,
                 Symbol = symbol,
-                Data = new CoinDataDto()
+                Data = new CoinDataDTO()
                 {
                     Price = price
                 },
@@ -105,6 +107,7 @@ namespace CryproApp.API
 
             return coin;
         }
+
         public async Task<List<PricePointDTO>> GetCoinChartDataAsync(string id, string currency)
         {
             var root = await _http.GetFromJsonAsync<JsonElement>(
@@ -123,7 +126,7 @@ namespace CryproApp.API
 
         public async Task<IEnumerable<Coin>> GetTopCoinsAsync()
         {
-            var root = await _http.GetFromJsonAsync<RootDto>(
+            var root = await _http.GetFromJsonAsync<RootDTO>(
                     "search/trending");
 
             var coins = root?.Coins.Select(c => new Coin

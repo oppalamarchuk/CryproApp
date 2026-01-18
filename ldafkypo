@@ -1,0 +1,118 @@
+[33mcommit dc165e5acbf7be607e2fe1c5ba1e099db66ad1ec[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mfix/CoingeckoApi.cs[m[33m)[m
+Author: Ostap <110777567+oppalamarchuk@users.noreply.github.com>
+Date:   Fri Dec 19 23:34:00 2025 +0200
+
+    Revise README for Cryptocurrency Dashboard project
+    
+    Updated project name and added detailed description, features, build instructions, and screenshots.
+
+[33mcommit 2454e825694cf88ff6d1e578cd2c257e4a21b6a1[m
+Author: Ostap <110777567+oppalamarchuk@users.noreply.github.com>
+Date:   Fri Dec 19 21:25:14 2025 +0000
+
+    Add page screenshots
+
+[33mcommit 7f233a37d26f19731c543209bfa34c8c105ad910[m
+Author: oppalamarchuk <palamarcukostap7@gmail.com>
+Date:   Fri Dec 19 23:23:00 2025 +0200
+
+    Add docs
+
+[33mcommit 6b95d4041ae83fda623a4fa55a0c2e2e9f838bdf[m
+Author: oppalamarchuk <palamarcukostap7@gmail.com>
+Date:   Fri Dec 19 22:14:28 2025 +0200
+
+    Add quote chart in coinDetail page
+
+[33mcommit 5f12d3418d072d38c52447fc63d4e9411574b776[m
+Author: oppalamarchuk <palamarcukostap7@gmail.com>
+Date:   Fri Dec 19 13:39:11 2025 +0200
+
+    Add redirection to market web page
+
+[33mcommit bfa25ce026d2ab939234f9207a80ee1297a9dc71[m
+Author: oppalamarchuk <palamarcukostap7@gmail.com>
+Date:   Fri Dec 19 00:40:59 2025 +0200
+
+    Add Markets to CoinDetails page
+
+[33mcommit 8feb6b9a27154bc318e1bdfbc0d649998e6bbaed[m
+Author: oppalamarchuk <palamarcukostap7@gmail.com>
+Date:   Thu Dec 18 14:58:59 2025 +0200
+
+    Add Convert page with logic
+
+[33mcommit 3c657ae12607ba52121c974a75b9ca9a44d42f61[m
+Author: oppalamarchuk <palamarcukostap7@gmail.com>
+Date:   Wed Dec 17 19:18:02 2025 +0200
+
+    Add nav from Search to CoinDetails
+
+[33mcommit e6201545be12048c2dca66dac41867591100e9e8[m
+Author: oppalamarchuk <palamarcukostap7@gmail.com>
+Date:   Wed Dec 17 18:34:11 2025 +0200
+
+    Add Coin Search
+
+[33mcommit 23e175cae5fd6f9f955b486c02e1ae590c326492[m
+Author: ostap <ostap@WIN-6M4IG4EOUHR>
+Date:   Wed Dec 17 14:20:33 2025 +0200
+
+    Add navigation from CoinDetail to Coins
+
+[33mcommit 8b818dd3e5df42e61a9548637bba903d16235b5a[m
+Author: ostap <ostap@WIN-6M4IG4EOUHR>
+Date:   Wed Dec 17 13:49:20 2025 +0200
+
+    Add navigation from CoinsView to CoinDetailsView
+
+[33mcommit cd7f04e8989d144f17de6f139b8bbb1a2cc5b24e[m
+Author: ostap <ostap@WIN-6M4IG4EOUHR>
+Date:   Tue Dec 16 16:42:34 2025 +0200
+
+    Added CoinDetails View
+
+[33mcommit c664ca9f425bf86223dec8d9845e9d2dec11c332[m
+Author: ostap <ostap@WIN-6M4IG4EOUHR>
+Date:   Tue Dec 16 15:57:13 2025 +0200
+
+    Extract CoinView from MainWindow; make MainWindow extensible
+
+[33mcommit 1d2a167e232f50080e4e5d562830599f8ed1cb6e[m
+Author: ostap <ostap@WIN-6M4IG4EOUHR>
+Date:   Thu Dec 11 19:23:39 2025 +0200
+
+    Add coin details fetch and market DTOs for Coingecko API
+    
+    Implemented GetCoinDetailsAsync to retrieve detailed coin info, including price, volume, 24h change, and market listings from the Coingecko API.
+
+[33mcommit 54c7f41cf9572868973d150b4e86f99cc8b349ba[m
+Author: ostap <ostap@WIN-6M4IG4EOUHR>
+Date:   Wed Dec 10 15:19:17 2025 +0200
+
+    Implement simple UI for  top 15 coins
+    Downgrade project version to .net8
+
+[33mcommit 0fe213a54be91e8112294c9d5a166a90dac252f6[m
+Author: ostap <ostap@WIN-6M4IG4EOUHR>
+Date:   Wed Dec 10 12:22:02 2025 +0200
+
+    Refactor CoingeckoApi
+
+[33mcommit 95a69c8d14c875d602ec4e3af1f3b8be91aac83f[m
+Author: ostap <ostap@WIN-6M4IG4EOUHR>
+Date:   Wed Dec 10 11:57:07 2025 +0200
+
+    Add CoingeckoApi.GetTopCoinsAsync method get Top 15 coins by popularity.
+
+[33mcommit 4b70a81253806ebd506fe40dc0cde6d0c02511f3[m
+Author: ostap <ostap@WIN-6M4IG4EOUHR>
+Date:   Tue Dec 9 11:07:49 2025 +0000
+
+    Add project files.
+
+[33mcommit 0215b9d266e1da4977356425f98a8734f7cc22ea[m
+Author: ostap <ostap@WIN-6M4IG4EOUHR>
+Date:   Tue Dec 9 11:07:47 2025 +0000
+
+    Add .gitattributes, .gitignore, and README.md.

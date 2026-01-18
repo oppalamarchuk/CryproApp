@@ -1,11 +1,11 @@
 ﻿namespace CryproApp.DTO.CoingeckoApi
 {
-    public class CoinDetailsDto : CoinItemDto
+    public class CoinDetailsDTO : CoinItemDTO
     {
         public decimal Volume { get; set; }
-        public decimal PriceChange { get; set; }
-        public List<Market> Markets { get; set; } = new List<Market>();
 
-        public override string ToString() => $"CoinDetatilsDto: {Id} - {Name} - {Symbol} - {PriceChange}";
+        public decimal PriceChange { get; set; }
+
+        public List<MarketDTO> Markets { get; set; } = new List<MarketDTO>();
     }
 }

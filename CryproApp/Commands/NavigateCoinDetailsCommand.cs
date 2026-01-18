@@ -2,17 +2,13 @@
 using CryproApp.Models;
 using CryproApp.Stores;
 using CryproApp.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CryproApp.Commands
 {
-    class NavigateCoinDetailsCommand : CommandBase
+    public class NavigateCoinDetailsCommand : CommandBase
     {
         private readonly NavigationStore _navigationStore;
+        
         public NavigateCoinDetailsCommand(NavigationStore navigationStore) 
         {
             _navigationStore = navigationStore;
@@ -23,9 +19,9 @@ namespace CryproApp.Commands
             if(parameter is Coin coin)
             {
                 _navigationStore.CurrentViewModel =
-                    new CoinDetailsViewModel(coin);
+                    new CoinDetailsViewModel(coin.Id);
             }
-            else if (parameter is CoinListItemDto coinL)
+            else if (parameter is CoinListItemDTO coinL)
             {
                 _navigationStore.CurrentViewModel =
                   new CoinDetailsViewModel(coinL.Id);

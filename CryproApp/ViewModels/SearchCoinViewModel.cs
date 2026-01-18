@@ -1,21 +1,29 @@
-﻿using CryproApp.Commands;
+﻿using CryproApp.API;
+using CryproApp.Commands;
 using CryproApp.DTO.CoingeckoApi;
-using CryproApp.Models;
 using CryproApp.Stores;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CryproApp.ViewModels
 {
     class SearchCoinViewModel : ViewModelBase
     {
+        private List<CoinListItemDTO> _allCoins = new();
         private readonly NavigationStore _navigationStore;
-        private string _searchText;
+        private string _searchText = string.Empty;
+
+        public SearchCoinViewModel(NavigationStore navigationStore)
+        {
+            _navigationStore = navigationStore;
+            OpenDetailsCommand = new NavigateCoinDetailsCommand(_navigationStore);
+            Coins = new ObservableCollection<CoinListItemDTO>();
+
+            LoadCoins();
+        }
+
+        public ICommand OpenDetailsCommand { get; init; }
+
         public string SearchText 
         { 
             get => _searchText;
@@ -26,36 +34,18 @@ namespace CryproApp.ViewModels
                 FilterCoins();
             }
         }
-        public ICommand OpenDetailsCommand { get; }
-        private readonly List<CoinListItemDto> _allCoins = new();
-        private ObservableCollection<CoinListItemDto> _coins = new();
-        public ObservableCollection<CoinListItemDto> Coins
-        {
-            get => _coins;
-            set
-            {
-                _coins = value;
-                OnPropertyChanged();
-            }
-        }
+
+        public ObservableCollection<CoinListItemDTO> Coins{ get; init; }
 
         private async void LoadCoins()
         {
-            var api = new API.CoingeckoApi();
+            var api = new CoingeckoApi();
             var coins = await api.GetAllCoinsAsync();
 
             _allCoins.AddRange(coins);
         }
 
-        public SearchCoinViewModel(NavigationStore navigationStore)
-        {
-            _navigationStore = navigationStore;
-            OpenDetailsCommand = new NavigateCoinDetailsCommand(_navigationStore);
-
-            LoadCoins();
-        }
-      
-        public void FilterCoins()
+        private void FilterCoins()
         {
             if (string.IsNullOrWhiteSpace(SearchText))
             {
@@ -63,7 +53,7 @@ namespace CryproApp.ViewModels
                 return;
             }
 
-            IEnumerable<CoinListItemDto> filtered;
+            IEnumerable<CoinListItemDTO> filtered;
             if (SearchText.Length < 3)
             {
                 filtered = _allCoins.Where(c => c.Name.StartsWith(SearchText, StringComparison.OrdinalIgnoreCase));
@@ -75,7 +65,9 @@ namespace CryproApp.ViewModels
 
             filtered = filtered.OrderBy(c => c.Name.Length).Take(20);
 
-            Coins = new ObservableCollection<CoinListItemDto>(filtered.ToList());
+            Coins.Clear();
+            foreach (var coin in filtered)
+                Coins.Add(coin);
         }
     }
 }
