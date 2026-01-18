@@ -10,8 +10,8 @@ namespace CryproApp.ViewModels
 {
     public class CoinDetailsViewModel : ViewModelBase
     {
-        private CoinDetailsDto _coinDetails;
-        public CoinDetailsDto CoinDetails
+        private CoinDetailsDTO _coinDetails;
+        public CoinDetailsDTO CoinDetails
         {
             get => _coinDetails;
             set
@@ -25,11 +25,9 @@ namespace CryproApp.ViewModels
         public List<string> TimeLabels { get; set; } = new List<string>();
 
         public ICommand OpenMarketCommand { get; }
-        public CoinDetailsViewModel(Coin coin)
-        {
-            OpenMarketCommand = new NavigateMarketCommand();
 
-            LoadCoinDetails(coin.Id);
+        public CoinDetailsViewModel(Coin coin) : this(coin.Id)
+        {
         }
 
         public CoinDetailsViewModel(string coinId)
