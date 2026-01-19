@@ -47,58 +47,13 @@ namespace CryproApp.API
             return coins ?? new List<CoinListItemDto>();
         }
 
-        public async Task<CoinDetailsDTO> GetCoinDetailsAsync(string id , string currency)
+        public async Task<CoinDetailsDTO> GetCoinDetailsAsync(string id)
         {
             var coinDetails = await _http.GetFromJsonAsync<CoinDetailsDTO>($"coins/{id}");
 
             return coinDetails;
-            //JsonElement root = await _http.GetFromJsonAsync<JsonElement>(
-            //    $"coins/{id}");
-
-            //string name   = root.GetProperty("name").GetString();
-            //string symbol = root.GetProperty("symbol").GetString();
-            //decimal price = root.GetProperty("market_data")
-            //        .GetProperty("current_price")
-            //        .GetProperty(currency)
-            //        .GetDecimal();
-            //decimal volume = root.GetProperty("market_data")
-            //        .GetProperty("total_volume")
-            //        .GetProperty(currency)
-            //        .GetDecimal();
-            //decimal priceChange = root
-            //        .GetProperty("market_data")
-            //        .GetProperty("price_change_percentage_24h")
-            //        .GetDecimal();
-
-            //JsonElement tickers = root.GetProperty("tickers");
-            //List<Market> markets = tickers
-            //    .EnumerateArray()
-            //    .Select(item => new Market()
-            //    {
-            //        Name = item.GetProperty("market")
-            //                    .GetProperty("name").GetString(),
-            //        Volume = item.GetProperty("volume").GetDecimal(),
-            //        TradeUrl = item.GetProperty("trade_url").GetString(),
-            //        Price = item.GetProperty("last").GetDecimal(),
-            //    })
-            //    .ToList();
-
-            //CoinDetailsDTO coin = new CoinDetailsDTO()
-            //{
-            //    Id = id,
-            //    Name = name,
-            //    Symbol = symbol,
-            //    Data = new CoinDataDto()
-            //    {
-            //        Price = price
-            //    },
-            //    Volume = volume,
-            //    PriceChange = priceChange,
-            //    Markets = markets
-            //};
-
-            //return coin;
         }
+
         public async Task<List<PricePointDTO>> GetCoinChartDataAsync(string id, string currency)
         {
             var root = await _http.GetFromJsonAsync<JsonElement>(

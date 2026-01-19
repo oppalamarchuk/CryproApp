@@ -26,7 +26,7 @@ namespace CryproApp.DTO.CoingeckoApi
         public MarketDTO Market { get; set; }
 
         [JsonPropertyName("volume")]
-        public decimal MyProperty { get; set; }
+        public decimal Volume { get; set; }
 
         [JsonPropertyName("trade_url")]
         public string? TradeUrl { get; set; }

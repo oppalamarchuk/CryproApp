@@ -26,8 +26,9 @@
                Text="{Binding CoinDetails.Symbol}" />
 
         <TextBlock Grid.Row="2"
-               Text="{Binding CoinDetails.Data.Price,
+               Text="{Binding CoinDetails.Price,
                       StringFormat={}{0:$0.##########}}"/>
+
         
         <lvc:CartesianChart Grid.Row="3">
             <lvc:CartesianChart.Series>
