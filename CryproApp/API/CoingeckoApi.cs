@@ -3,7 +3,6 @@ using CryproApp.Models;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
-
 namespace CryproApp.API
 {
     public class CoingeckoApi
@@ -28,6 +27,7 @@ namespace CryproApp.API
         public async Task<decimal> ConvertCurrency(decimal amount, string fromCurrency, string toCurrency)
         {
             string mediumCurrency = "usd";
+
             var root = await _http.GetFromJsonAsync<JsonElement>(
                 $"simple/price?vs_currencies={mediumCurrency}&ids={fromCurrency}%2C{toCurrency}");
 
@@ -40,9 +40,9 @@ namespace CryproApp.API
                 .GetProperty(toCurrency)
                 .GetProperty(mediumCurrency)
                 .GetDecimal();
-            
-            decimal rate = priceFrom / priceTo;
 
+            decimal rate = priceFrom / priceTo;
+            
             return amount * rate;
         }
 
@@ -53,59 +53,11 @@ namespace CryproApp.API
             return coins ?? new List<CoinListItemDTO>();
         }
 
-        public async Task<CoinDetailsDTO> GetCoinDetailsAsync(string id , string currency)
+        public async Task<CoinDetailsDTO> GetCoinDetailsAsync(string id)
         {
-            JsonElement root = await _http.GetFromJsonAsync<JsonElement>(
-                $"coins/{id}");
+            var coinDetails = await _http.GetFromJsonAsync<CoinDetailsDTO>($"coins/{id}");
 
-            string name   = root.GetProperty("name").GetString();
-            string symbol = root.GetProperty("symbol").GetString();
-
-            decimal price = root
-                    .GetProperty("market_data")
-                    .GetProperty("current_price")
-                    .GetProperty(currency)
-                    .GetDecimal();
-
-            decimal volume = root   
-                    .GetProperty("market_data")
-                    .GetProperty("total_volume")
-                    .GetProperty(currency)
-                    .GetDecimal();
-
-            decimal priceChange = root
-                    .GetProperty("market_data")
-                    .GetProperty("price_change_percentage_24h")
-                    .GetDecimal();
-
-            JsonElement tickers = root.GetProperty("tickers");
-            List<MarketDTO> markets = tickers
-                .EnumerateArray()
-                .Select(item => new MarketDTO()
-                {
-                    Name = item.GetProperty("market")
-                                .GetProperty("name").GetString(),
-                    Volume = item.GetProperty("volume").GetDecimal(),
-                    TradeUrl = item.GetProperty("trade_url").GetString(),
-                    Price = item.GetProperty("last").GetDecimal(),
-                })
-                .ToList();
-
-            CoinDetailsDTO coin = new CoinDetailsDTO()
-            {
-                Id = id,
-                Name = name,
-                Symbol = symbol,
-                Data = new CoinDataDTO()
-                {
-                    Price = price
-                },
-                Volume = volume,
-                PriceChange = priceChange,
-                Markets = markets
-            };
-
-            return coin;
+            return coinDetails;
         }
 
         public async Task<List<PricePointDTO>> GetCoinChartDataAsync(string id, string currency)

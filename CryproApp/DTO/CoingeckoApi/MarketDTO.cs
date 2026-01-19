@@ -1,13 +1,10 @@
-﻿namespace CryproApp.DTO.CoingeckoApi
+﻿using System.Text.Json.Serialization;
+
+namespace CryproApp.DTO.CoingeckoApi
 {
     public class MarketDTO
     {
-        public string? Name { get; set; }
-
-        public string? TradeUrl { get; set; }
-
-        public decimal Volume { get; set; }
-
-        public decimal Price { get; set; }
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
     }
 }
