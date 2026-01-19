@@ -57,7 +57,7 @@ namespace CryproApp.ViewModels
                 Symbol = coins.Symbol,
                 Price = coins.MarketData.CurrentPrice[currency],
                 Volume = coins.MarketData.TotalVolume[currency],
-                PriceChange = coins.MarketData.PriceChangePer24h,
+                PriceChangePercentage24h = coins.MarketData.PriceChangePercentage24h,
                 Markets = coins.Tickers.Select(t => new MarketUI
                 {
                     Name = t.Market.Name,

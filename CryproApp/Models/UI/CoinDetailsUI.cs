@@ -7,7 +7,7 @@
         public string Name { get; set; }
         public decimal Price { get; set; }
         public decimal Volume { get; set; }
-        public decimal PriceChange { get; set; }
+        public decimal PriceChangePercentage24h { get; set; }
         public IEnumerable<MarketUI> Markets { get; set; }
     }
 }

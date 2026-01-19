@@ -44,7 +44,7 @@ namespace CryproApp.DTO.CoingeckoApi
         public Dictionary<string, decimal>? TotalVolume { get; set; }
 
         [JsonPropertyName("price_change_percentage_24h")]
-        public decimal PriceChangePer24h { get; set; }
+        public decimal PriceChangePercentage24h { get; set; }
     }
 
 }

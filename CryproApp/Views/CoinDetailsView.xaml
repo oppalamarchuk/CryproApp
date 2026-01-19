@@ -12,7 +12,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -22,15 +21,19 @@
                FontSize="24"
                FontWeight="Bold"/>
 
-        <TextBlock Grid.Row="1"
-               Text="{Binding CoinDetails.Symbol}" />
+        <TextBlock Grid.Row="1" FontSize="16">
+            <Run Text="Symbol: " />
+            <Run Text="{Binding CoinDetails.Symbol}" />
+            <Run Text=" | Price: " />
+            <Run Text="{Binding CoinDetails.Price}" FontWeight="Bold" />
+            <Run Text=" | Volume: " />
+            <Run Text="{Binding CoinDetails.Volume}"/>
+            <Run Text=" Price change "/>
+            <Run Text="{Binding CoinDetails.PriceChangePercentage24h}"/>
+        </TextBlock>
 
-        <TextBlock Grid.Row="2"
-               Text="{Binding CoinDetails.Price,
-                      StringFormat={}{0:$0.##########}}"/>
 
-        
-        <lvc:CartesianChart Grid.Row="3">
+        <lvc:CartesianChart Grid.Row="2">
             <lvc:CartesianChart.Series>
                 <lvc:LineSeries 
                     Values="{Binding Prices}"
@@ -49,7 +52,7 @@
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
 
-        <ListBox Grid.Row="4"
+        <ListBox Grid.Row="3"
                  ItemsSource="{Binding CoinDetails.Markets}"
                  HorizontalAlignment="Stretch">
             <ListBox.ItemTemplate>
@@ -61,12 +64,12 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        
+
                         <TextBlock Grid.Row="0" Text="{Binding Name}"/>
                         <TextBlock Grid.Row="1" Text="{Binding Volume}"/>
                         <TextBlock Grid.Row="2" Text="{Binding Price,
                                       StringFormat={}{0:0.##########}}"/>
-                        
+
                         <Button Grid.Row="3"
                                 Content="Visit"
                                 Command="{Binding DataContext.OpenMarketCommand,
@@ -77,5 +80,4 @@
             </ListBox.ItemTemplate>
         </ListBox>
     </Grid>
-
 </UserControl>
