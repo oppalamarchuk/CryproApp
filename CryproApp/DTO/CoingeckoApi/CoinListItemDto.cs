@@ -11,8 +11,6 @@ namespace CryproApp.DTO.CoingeckoApi
     {
         public string Id { get; set; }
         public string Symbol { get; set; }
-        public decimal hoe { get; set; }
-
         public string Name { get; set; }
     }
 
