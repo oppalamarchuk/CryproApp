@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CryproApp.DTO.CoingeckoApi
+﻿namespace CryproApp.DTO.CoingeckoApi
 {
-    public class RootDto
+    public class RootDTO
     {
-        public List<CoinWrapperDto> Coins { get; set; }
+        public List<CoinWrapperDTO>? Coins { get; set; }
     }
 }

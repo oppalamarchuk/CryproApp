@@ -1,18 +1,13 @@
-﻿using CryproApp.Stores;
-using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CryproApp.ViewModels
+﻿namespace CryproApp.ViewModels
 {
     public class ConvertVeiwModel: ViewModelBase
-    {
-        private readonly NavigationStore _navigationStore;
-       
+    {       
         private string _fromCurrency;
+        private string _toCurrency;
+        private decimal _fromAmount;
+        private decimal _toAmount;
+        private bool _isUpdated = false;
+
         public string FromCurrency 
         { 
             get => _fromCurrency;
@@ -24,7 +19,6 @@ namespace CryproApp.ViewModels
             }
         }
 
-        private string _toCurrency;
         public string ToCurrency 
         { 
             get => _toCurrency;
@@ -36,7 +30,6 @@ namespace CryproApp.ViewModels
             }
         }
         
-        private decimal _fromAmount;
         public decimal FromAmount 
         { 
             get => _fromAmount;
@@ -48,7 +41,6 @@ namespace CryproApp.ViewModels
             }
         }
 
-        private decimal _toAmount;
         public decimal ToAmount 
         { 
             get => _toAmount;
@@ -60,17 +52,10 @@ namespace CryproApp.ViewModels
             }
         }
         
-        private bool _isUpdated = false;
-
-        public ConvertVeiwModel(NavigationStore navigationStore)
-        {
-            _navigationStore = navigationStore;
-
-        }
-
         public async Task UpdateToAmount()
         {
             if (_isUpdated) return;
+
             try
             {
                 _isUpdated = true;

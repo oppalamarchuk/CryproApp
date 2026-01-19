@@ -1,8 +1,7 @@
 ﻿namespace CryproApp.DTO.CoingeckoApi
 {
-    public class CoinWrapperDto
+    public class CoinWrapperDTO
     {
-        public CoinItemDto Item { get; set; }
+        public CoinItemDTO? Item { get; set; }
     }
-
 }
